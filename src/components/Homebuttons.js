@@ -23,7 +23,7 @@ function Homebuttons() {
           buttonSize='btn--large'
           onClick={console.log('uni')}
         >
-          ENGINUITY FOR UNIVERSITIES <i className='far fa-play-circle' />
+          ENGINUITY FOR UNIVERSITIES 
         </Button>
       </div>
     </div>
