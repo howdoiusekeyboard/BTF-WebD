@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from './Button';
-import { Link }  from 'react-router-dom';
 import './Navbar.css';
+import { Link, useMatch, useResolvedPath } from "react-router-dom";
+import Technofest from './Pages/Technofest';
+import Enginuity from './Pages/Enginuity';
+
+
 
 function Navbar() {
     const [click, setClick] = useState(false);    
@@ -22,7 +26,6 @@ function Navbar() {
       }, []);
     
     window.addEventListener('resize', showButton);
-
     return (
         <>
           <nav className="navbar">
@@ -36,18 +39,18 @@ function Navbar() {
               <ul className={click ? 'nav-menu active' : 'nav-menu'}>
                 <li className='nav-item'>
                  <Link to='/' className='nav-links' onClick={closeMobileMenu}>
-                  Home Page
+                  Home
                  </Link>
                 </li>
                 <li className='nav-item'>
-                 <Link to='/technofest' className='nav-links' onClick={closeMobileMenu}>
+                 <CustomLink to='/technofest' className='nav-links' onClick={handleClick}>
                   Technofest for Schools
-                 </Link>
+                 </CustomLink>
                 </li>
                 <li className='nav-item'>
-                 <Link to='/enginuity' className='nav-links' onClick={closeMobileMenu}>
+                 <CustomLink to='/enginuity' className='nav-links' onClick={handleClick}>
                   Enginuity for Universities
-                 </Link>
+                 </CustomLink>
                 </li>
                  <li className='nav-item'>
                   <Link to='/events' className='nav-links' onClick={closeMobileMenu}>
@@ -60,6 +63,19 @@ function Navbar() {
           </nav>
         </>
     )
+}
+
+function CustomLink({ to, children, ...props }) {
+  const resolvedPath = useResolvedPath(to)
+  const isActive = useMatch({ path: resolvedPath.pathname, end: true })
+
+  return (
+    <li className={isActive ? "active" : ""}>
+      <Link to={to} {...props}>
+        {children}
+      </Link>
+    </li>
+  )
 }
 
 export default Navbar
